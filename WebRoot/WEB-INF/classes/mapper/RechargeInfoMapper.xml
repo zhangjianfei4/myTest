@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RechargeInfo">
+	<resultMap id="rechargeInfoMapper" type="Recharge">
+		<id property="sn" column="sn" />
+		<result property="user_sn" column="user_sn" />
+		<result property="user_name" column="user_name" />
+		<result property="user_id" column="user_id" />
+		<result property="admin_user_name" column="admin_user_name" />
+		<result property="recharge_count" column="recharge_count" />
+		<result property="remark" column="remark" />
+		<result property="insert_time" column="insert_time" />
+		<result property="gotMoney" column="gotMoney" />
+		<result property="ownMoney" column="ownMoney" />
+		<result property="gotMoneyTime" column="gotMoneyTime" />
+		<result property="finace_remark" column="finace_remark" />
+		<result property="clearOwnMoneyPerson" column="clearOwnMoneyPerson" />
+		<result property="clearOwnMoneyTime" column="clearOwnMoneyTime" />
+		<result property="clear_status" column="clear_status" />
+	</resultMap>
+	
+	<select id="rechargeInfoById" parameterType="map" resultType="Recharge">
+		select * from recharge_info where sn>-1
+		<if test="user_id > 0">
+			and  user_id=#{user_id}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and insert_time>#{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and insert_time &lt; #{endTime}
+		</if>
+		<if test="user_name != null and user_name != ''">
+			and user_name = #{user_name}
+		</if>
+			order by sn desc
+	</select>
+	
+</mapper> 
